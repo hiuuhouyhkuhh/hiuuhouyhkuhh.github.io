@@ -8,13 +8,17 @@ import './App.css'
 
 const MAX_SAVED = 5
 
+const parseAccounts = (raw: unknown) =>
+  Array.isArray(raw) ? raw.filter((a): a is string => typeof a === 'string' && normalizeAccount(a) === a) : undefined
+const parseAccount = (raw: unknown) => (typeof raw === 'string' ? normalizeAccount(raw) : null)
+
 function accountFromUrl(): string | null {
   return normalizeAccount(new URLSearchParams(window.location.search).get('account') ?? '')
 }
 
 export function App() {
-  const [accounts, setAccounts] = useLocalStorage<string[]>('pp:accounts', [])
-  const [stored, setStored] = useLocalStorage<string | null>('pp:active', null)
+  const [accounts, setAccounts] = useLocalStorage<string[]>('pp:accounts', [], parseAccounts)
+  const [stored, setStored] = useLocalStorage<string | null>('pp:active', null, parseAccount)
   const [active, setActive] = useState<string | null>(() => accountFromUrl() ?? stored)
   const [lookupError, setLookupError] = useState<{ account: string; message: string }>()
 

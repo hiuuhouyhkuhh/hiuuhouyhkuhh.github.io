@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DEFAULT_ALERTS, evaluateAlert, shouldNotify } from './alerts'
+import { DEFAULT_ALERTS, evaluateAlert, parseAlertSettings, shouldNotify } from './alerts'
 
 const settings = DEFAULT_ALERTS // ৳200 threshold, 7 days
 
@@ -42,6 +42,14 @@ describe('evaluateAlert', () => {
   it('works without a forecast', () => {
     const alert = evaluateAlert({ balance: 150, daysLeft: null, runOutDate: null }, settings)
     expect(alert.detail).toBe('৳150.00 left on the meter.')
+  })
+})
+
+describe('parseAlertSettings', () => {
+  it('fills in missing or invalid fields from the defaults', () => {
+    expect(parseAlertSettings({ thresholdTaka: 350 })).toEqual({ ...DEFAULT_ALERTS, thresholdTaka: 350 })
+    expect(parseAlertSettings({ runwayDays: 'x', notify: 'yes' })).toEqual(DEFAULT_ALERTS)
+    expect(parseAlertSettings(null)).toEqual(DEFAULT_ALERTS)
   })
 })
 

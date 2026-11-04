@@ -1,16 +1,21 @@
 import { useCallback, useState } from 'react'
 
-function read<T>(key: string, fallback: T): T {
+/** Turns whatever was stored into a valid value, or `undefined` to use the fallback. */
+export type Parse<T> = (raw: unknown) => T | undefined
+
+function read<T>(key: string, fallback: T, parse?: Parse<T>): T {
   try {
     const raw = localStorage.getItem(key)
-    return raw === null ? fallback : (JSON.parse(raw) as T)
+    if (raw === null) return fallback
+    const value: unknown = JSON.parse(raw)
+    return (parse ? parse(value) : (value as T)) ?? fallback
   } catch {
     return fallback
   }
 }
 
-export function useLocalStorage<T>(key: string, fallback: T) {
-  const [value, setValue] = useState<T>(() => read(key, fallback))
+export function useLocalStorage<T>(key: string, fallback: T, parse?: Parse<T>) {
+  const [value, setValue] = useState<T>(() => read(key, fallback, parse))
 
   const update = useCallback(
     (next: T | ((prev: T) => T)) => {

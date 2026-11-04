@@ -62,3 +62,14 @@ export function evaluateAlert({ balance, daysLeft, runOutDate }: AlertInput, set
 export function shouldNotify(log: Record<string, string>, account: string, today: string): boolean {
   return log[account] !== today
 }
+
+/** Accepts stored settings from older versions by filling in anything missing or invalid. */
+export function parseAlertSettings(raw: unknown): AlertSettings {
+  const value = (raw && typeof raw === 'object' ? raw : {}) as Partial<Record<keyof AlertSettings, unknown>>
+  const num = (v: unknown, fallback: number) => (typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : fallback)
+  return {
+    thresholdTaka: num(value.thresholdTaka, DEFAULT_ALERTS.thresholdTaka),
+    runwayDays: num(value.runwayDays, DEFAULT_ALERTS.runwayDays),
+    notify: value.notify === true,
+  }
+}

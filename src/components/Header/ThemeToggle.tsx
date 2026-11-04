@@ -10,7 +10,9 @@ function systemTheme(): Theme {
 }
 
 export function ThemeToggle() {
-  const [stored, setStored] = useLocalStorage<Theme | null>('pp:theme', null)
+  const [stored, setStored] = useLocalStorage<Theme | null>('pp:theme', null, (raw) =>
+    raw === 'light' || raw === 'dark' ? raw : null,
+  )
   const theme = stored ?? systemTheme()
   const next: Theme = theme === 'dark' ? 'light' : 'dark'
 
