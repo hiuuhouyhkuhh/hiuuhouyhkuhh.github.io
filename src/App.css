@@ -37,3 +37,24 @@
 .footer a:hover {
   color: var(--accent);
 }
+
+.skip-link {
+  position: absolute;
+  z-index: 50;
+  left: var(--s-4);
+  top: var(--s-3);
+  padding: var(--s-2) var(--s-4);
+  border-radius: var(--radius-m);
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+main:focus {
+  outline: none;
+}

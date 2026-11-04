@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { formatDay, formatTaka } from '../../lib/format'
+import { chargeName, formatDay, formatTaka } from '../../lib/format'
 import type { RechargeRecord } from '../../lib/types'
 import './Recharges.css'
 
@@ -8,12 +8,6 @@ interface RechargesProps {
 }
 
 const INITIAL_ROWS = 5
-
-/** "Demand Charge-All" → "Demand charge", "Meter Rent-1P" → "Meter rent". */
-export function chargeName(raw: string): string {
-  const base = raw.split('-')[0]!.trim().toLowerCase()
-  return base.charAt(0).toUpperCase() + base.slice(1)
-}
 
 const groupToken = (token: string) => token.replace(/(\d{4})(?=\d)/g, '$1 ')
 

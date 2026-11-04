@@ -20,7 +20,7 @@ describe('App', () => {
     mockDesco()
     await openAccount('00000000')
 
-    expect(await screen.findByLabelText('510.65 taka')).toBeInTheDocument()
+    expect(await screen.findByText('৳510.65')).toBeInTheDocument()
     expect(screen.getByText('1234 5678 9012')).toBeInTheDocument()
     expect(JSON.parse(localStorage.getItem('pp:accounts')!)).toEqual(['00000000'])
     expect(localStorage.getItem('pp:backend:00000000')).toBe('tkdes')
@@ -40,7 +40,7 @@ describe('App', () => {
     mockDesco()
     window.history.replaceState(null, '', '/?account=00000000')
     render(<App />)
-    expect(await screen.findByLabelText('510.65 taka')).toBeInTheDocument()
+    expect(await screen.findByText('৳510.65')).toBeInTheDocument()
   })
 
   it('warns when the balance is below the alert threshold', async () => {
@@ -56,6 +56,6 @@ describe('App', () => {
     expect(await screen.findByRole('heading', { name: /couldn’t read this meter/i })).toBeInTheDocument()
     mockDesco()
     await userEvent.click(screen.getByRole('button', { name: /try again/i }))
-    expect(await screen.findByLabelText('510.65 taka')).toBeInTheDocument()
+    expect(await screen.findByText('৳510.65')).toBeInTheDocument()
   })
 })

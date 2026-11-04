@@ -40,7 +40,7 @@ describe('Usage', () => {
 
   it('switches both charts between kWh and taka', async () => {
     renderUsage()
-    await userEvent.click(screen.getByRole('radio', { name: 'Taka' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Taka' }))
     expect(screen.getByText(/busiest day/i)).toHaveTextContent('৳25.40')
     expect(screen.getByText(/heaviest month/i)).toHaveTextContent('৳1,198')
   })

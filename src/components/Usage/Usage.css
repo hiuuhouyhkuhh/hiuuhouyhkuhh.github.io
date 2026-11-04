@@ -104,7 +104,7 @@
   font-weight: 500;
 }
 
-.segmented__option[aria-checked='true'] {
+.segmented__option[aria-pressed='true'] {
   background: var(--surface-3);
   color: var(--text-primary);
 }

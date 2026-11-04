@@ -2,7 +2,8 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { RECHARGES } from '../../test/fixtures'
-import { chargeName, Recharges } from './Recharges'
+import { chargeName } from '../../lib/format'
+import { Recharges } from './Recharges'
 
 describe('chargeName', () => {
   it('turns DESCO item codes into plain names', () => {

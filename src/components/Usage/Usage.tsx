@@ -24,13 +24,12 @@ function SegmentedUnit({ unit, onChange }: { unit: Unit; onChange: (u: Unit) => 
     ['taka', 'Taka'],
   ]
   return (
-    <div className="segmented" role="radiogroup" aria-label="Show usage in">
+    <div className="segmented" role="group" aria-label="Show usage in">
       {options.map(([value, label]) => (
         <button
           key={value}
           type="button"
-          role="radio"
-          aria-checked={unit === value}
+          aria-pressed={unit === value}
           className="segmented__option"
           onClick={() => onChange(value)}
         >

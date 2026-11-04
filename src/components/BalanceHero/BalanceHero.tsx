@@ -1,5 +1,5 @@
 import { useCountUp } from '../../hooks/useCountUp'
-import { formatDay, formatNumber } from '../../lib/format'
+import { formatDay, formatNumber, formatTaka } from '../../lib/format'
 import { readingDate } from '../../lib/dates'
 import type { BalanceRecord } from '../../lib/types'
 import './BalanceHero.css'
@@ -19,8 +19,12 @@ export function BalanceHero({ balance, refreshing, onRefresh }: BalanceHeroProps
 
   return (
     <div className="hero">
-      <p className="label">Balance on meter</p>
-      <p className="hero__figure" aria-label={`${formatNumber(balance.balance, 2)} taka`}>
+      <p className="label hero__label">
+        <span className="hero__live" aria-hidden="true" />
+        Balance on meter
+      </p>
+      <p className="hero__figure">
+        <span className="visually-hidden">{formatTaka(balance.balance)}</span>
         <span className="hero__currency" aria-hidden="true">
           ৳
         </span>

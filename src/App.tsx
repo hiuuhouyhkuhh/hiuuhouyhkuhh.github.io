@@ -60,8 +60,11 @@ export function App() {
 
   return (
     <div className="page">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <Header active={active} accounts={accounts} onSwitch={open} onForget={forget} onAdd={goHome} />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         {active ? (
           <Dashboard key={active} account={active} onLoaded={handleLoaded} onNotFound={handleNotFound} />
         ) : (

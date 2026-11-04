@@ -80,3 +80,28 @@
     transform: rotate(360deg);
   }
 }
+
+.hero__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+/* A slow pulse: the reading is live from DESCO. */
+.hero__live {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--good);
+  animation: live 2.4s ease-out infinite;
+}
+
+@keyframes live {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--good) 50%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}

@@ -44,3 +44,9 @@ export function formatDay(isoDate: string, { year = false }: { year?: boolean } 
   const label = `${Number(d)} ${MONTHS[Number(m) - 1] ?? ''}`
   return year ? `${label} ${y}` : label
 }
+
+/** "Demand Charge-All" → "Demand charge", "Meter Rent-1P" → "Meter rent". */
+export function chargeName(raw: string): string {
+  const base = raw.split('-')[0]!.trim().toLowerCase()
+  return base.charAt(0).toUpperCase() + base.slice(1)
+}
