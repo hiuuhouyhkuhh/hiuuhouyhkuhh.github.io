@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "powerpulse-bot",
+  "main": "index.ts",
+  "compatibility_date": "2026-11-01",
+  "observability": { "enabled": false },
+  // Secrets (set with `npx wrangler secret put NAME`):
+  //   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, PP_ACCOUNTS, WEBHOOK_SECRET
+  "vars": {
+    "PP_THRESHOLD_TAKA": "200",
+    "PP_RUNWAY_DAYS": "7"
+  }
+}

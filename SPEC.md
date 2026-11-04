@@ -183,6 +183,19 @@ not a template.
 - [x] `node scripts/check-meters.ts` runs locally with Node 24 and no build step.
 - [x] The scheduled job sends one Telegram message per alerting meter and logs nothing sensitive.
 
+## v1.2: Telegram bot on demand
+
+- A Cloudflare Worker (`worker/`, free plan) receives the bot's messages through a Telegram
+  webhook and answers within seconds, reusing `src/lib`.
+- Commands: `/balance` (balance, runway, alert, recharge suggestion), `/usage` (month so far,
+  projection against last month, last 7 days), `/recharges` (last 3 with tokens), `/help`.
+- Only `TELEGRAM_CHAT_ID` gets answers; other chats are ignored silently. Telegram's
+  `secret_token` header authenticates every webhook call.
+- Worker secrets: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `PP_ACCOUNTS`, `WEBHOOK_SECRET`;
+  optional vars `PP_THRESHOLD_TAKA`, `PP_RUNWAY_DAYS`.
+- The Worker answers Telegram immediately and sends the reply in the background, so a slow
+  DESCO never makes Telegram retry the message.
+
 ## Open Questions (deferred, not blocking)
 
 - Web push for every visitor (needs a backend to hold push subscriptions).

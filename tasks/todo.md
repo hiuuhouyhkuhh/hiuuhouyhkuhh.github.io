@@ -91,3 +91,17 @@
 **Verify:** report unit tests; local dry run against the live API; workflow run green.
 **Files:** src/lib/report.ts (+test), scripts/check-meters.ts, .github/workflows/meter-check.yml, README.md
 - [x] done
+
+# v1.2 — Telegram bot on demand
+
+## Task 15: Bot replies (formatting)
+**Acceptance:** /balance, /usage, /recharges, /help text built from the same lib data; masked account; alert line when active.
+**Verify:** `npm test -- src/lib/bot`
+**Files:** src/lib/bot.ts (+ test)
+- [ ] done
+
+## Task 16: Cloudflare Worker + webhook
+**Acceptance:** verifies secret header, answers only the owner chat, replies in background, /setup registers webhook and command menu.
+**Verify:** worker unit test with mocked fetch; wrangler deploy; live /balance round trip.
+**Files:** worker/index.ts, worker/wrangler.jsonc, worker/package.json, README.md
+- [ ] done
