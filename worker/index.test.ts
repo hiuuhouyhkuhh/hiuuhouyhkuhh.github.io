@@ -75,6 +75,12 @@ describe('worker', () => {
     expect(sent[0]!.body.text).toContain('/recharges')
   })
 
+  it('reports DESCO reachability without meter data', async () => {
+    stubNetwork()
+    const response = await run(new Request('https://bot.example.workers.dev/health'))
+    expect(await response.json()).toEqual({ desco: 'reachable' })
+  })
+
   it('protects and performs setup', async () => {
     const sent = stubNetwork()
     expect((await run(new Request('https://bot.example.workers.dev/setup?key=nope'))).status).toBe(403)

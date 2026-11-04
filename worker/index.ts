@@ -6,6 +6,7 @@
  * never makes Telegram retry. Only the owner's chat gets answers.
  *
  * GET /setup?key=<WEBHOOK_SECRET> registers the webhook and the command menu.
+ * GET /health reports whether DESCO is reachable from Cloudflare (no meter data).
  */
 import { parseAlertSettings } from '../src/lib/alerts.ts'
 import { fetchBalance, fetchDaily, fetchMonthly, fetchRecharges, MeterApiError, normalizeAccount } from '../src/lib/api.ts'
@@ -116,6 +117,15 @@ export default {
         return new Response('Forbidden', { status: 403 })
       }
       return setup(request, env)
+    }
+
+    if (request.method === 'GET' && url.pathname === '/health') {
+      // An all-zero account is never real: DESCO answers "not found" if it is reachable.
+      const desco = await fetchBalance('00000000').then(
+        () => 'reachable',
+        (error: unknown) => (error instanceof MeterApiError && error.kind === 'not-found' ? 'reachable' : 'unreachable'),
+      )
+      return Response.json({ desco })
     }
 
     if (request.method !== 'POST') return new Response('PowerPulse bot is running.')
