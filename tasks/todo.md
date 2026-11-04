@@ -77,3 +77,17 @@
 **Verify:** workflow green; https://powerpulsebd.github.io loads
 **Files:** .github/workflows/deploy.yml, README.md
 - [x] done
+
+# v1.1 — Notifications everywhere
+
+## Task 13: Service worker notifications + installable app
+**Acceptance:** notifications go through the service worker when available, constructor as fallback; tapping focuses/opens the app; manifest + icons; iPhone guidance.
+**Verify:** hook tests; production build serves /sw.js and /manifest.webmanifest; headless check that the worker registers.
+**Files:** public/sw.js, public/manifest.webmanifest, public/icons/*, src/main.tsx, src/hooks/useAlertNotification.ts, src/components/Alerts/AlertSettings.tsx
+- [ ] done
+
+## Task 14: Scheduled Telegram meter check
+**Acceptance:** script reuses src/lib, sends Telegram message per alerting meter, never logs sensitive data, exits cleanly when unconfigured.
+**Verify:** report unit tests; local dry run against the live API; workflow run green.
+**Files:** src/lib/report.ts (+test), scripts/check-meters.ts, .github/workflows/meter-check.yml, README.md
+- [ ] done

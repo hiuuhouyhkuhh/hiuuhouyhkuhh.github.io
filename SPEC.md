@@ -28,8 +28,9 @@ the official portal or SMS and has no sense of trend or runway.
 1. Static site on GitHub Pages at `https://powerpulsebd.github.io`; no backend.
 2. Data comes straight from the browser to `https://prepaid.desco.org.bd/api`
    (verified: `Access-Control-Allow-Origin: *`, preflight allows `GET`).
-3. Alerts are in-page plus opt-in browser `Notification` while the site is open.
-   Push/email/SMS alerts need a backend and are out of scope for v1.
+3. Alerts are in-page plus opt-in browser notifications, shown through a service worker so
+   they work on Android and on iPhone when PowerPulse is added to the Home Screen.
+   Alerts while the site is closed come from a scheduled GitHub Action (v1.1, below).
 4. English UI with a Bangla tagline; full Bangla localisation is a later feature.
 5. Only the account number is stored, in `localStorage` on the user's device.
 6. Customer personal info (`getCustomerInfo`: name, phone, address) is **not** fetched —
@@ -157,8 +158,33 @@ not a template.
 - [ ] `npm test`, `npm run typecheck`, `npm run lint`, `npm run build` all pass in CI.
 - [ ] Site live at https://powerpulsebd.github.io.
 
+## v1.1: Notifications everywhere
+
+**Service worker + installable app**
+- `public/sw.js` shows notifications (`registration.showNotification`) and focuses or opens
+  PowerPulse when one is tapped. It does not cache anything, so deploys are never stale.
+- A web app manifest and PNG icons make PowerPulse installable (Android, iPhone Home Screen).
+- On iPhone outside the Home Screen app, the settings explain how to enable notifications.
+
+**Scheduled meter check (owner alerts)**
+- `.github/workflows/meter-check.yml` runs daily at 09:00 Dhaka and on demand.
+- `scripts/check-meters.ts` reuses `src/lib` (API client, derivation, forecast, alert rules)
+  and sends a Telegram message when an alert is active (or always, when run manually with
+  "send summary").
+- Configuration lives in repository secrets: `PP_ACCOUNTS` (comma-separated),
+  `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`; optional variables `PP_THRESHOLD_TAKA`,
+  `PP_RUNWAY_DAYS`. Missing Telegram secrets → the job logs that and exits cleanly.
+- The repository is public, so **logs never contain account numbers, balances or tokens**.
+- Telegram messages show the account as `••••1234`.
+
+**Success criteria**
+- [ ] Enabling notifications on Android Chrome shows a notification when an alert is active.
+- [ ] Tapping a notification opens or focuses PowerPulse.
+- [ ] `node scripts/check-meters.ts` runs locally with Node 24 and no build step.
+- [ ] The scheduled job sends one Telegram message per alerting meter and logs nothing sensitive.
+
 ## Open Questions (deferred, not blocking)
 
-- Real push/SMS alerts (needs a small backend or scheduled job).
+- Web push for every visitor (needs a backend to hold push subscriptions).
 - Full Bangla UI and Bangla numerals.
 - Smarter forecasting (weekday/seasonal patterns, tariff slabs).
