@@ -1,0 +1,38 @@
+.page {
+  width: min(100% - 2 * var(--s-5), var(--page-max));
+  margin-inline: auto;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow-x: clip;
+}
+
+@media (max-width: 30rem) {
+  .page {
+    width: calc(100% - 2 * var(--s-4));
+  }
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s-3) var(--s-6);
+  padding-block: var(--s-5) var(--s-6);
+  border-top: 1px solid var(--rule);
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.footer p {
+  max-width: 64ch;
+}
+
+.footer a {
+  color: var(--text-secondary);
+  text-underline-offset: 3px;
+}
+
+.footer a:hover {
+  color: var(--accent);
+}
