@@ -1,10 +1,10 @@
-import { useId, useState } from 'react'
+import { useId, useState, type Dispatch, type SetStateAction } from 'react'
 import type { AlertSettings as Settings } from '../../lib/alerts'
 import './Alerts.css'
 
 interface AlertSettingsProps {
   settings: Settings
-  onChange: (settings: Settings) => void
+  onChange: Dispatch<SetStateAction<Settings>>
 }
 
 const RUNWAY_OPTIONS = [3, 5, 7, 10, 14]
@@ -19,11 +19,12 @@ export function AlertSettings({ settings, onChange }: AlertSettingsProps) {
   )
 
   async function toggleNotify(enabled: boolean) {
-    if (!enabled) return onChange({ ...settings, notify: false })
+    if (!enabled) return onChange((prev) => ({ ...prev, notify: false }))
     if (!notificationsSupported()) return
     const result = Notification.permission === 'default' ? await Notification.requestPermission() : Notification.permission
     setPermission(result)
-    onChange({ ...settings, notify: result === 'granted' })
+    // Settings may have changed while the permission prompt was open.
+    onChange((prev) => ({ ...prev, notify: result === 'granted' }))
   }
 
   return (

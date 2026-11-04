@@ -19,7 +19,11 @@ export function useAlertNotification(account: string, alert: Alert | null, enabl
     }
     if (!shouldNotify(log, account, today)) return
 
-    new Notification(alert.title, { body: alert.detail, icon: '/favicon.svg', tag: `powerpulse-${account}` })
-    localStorage.setItem(LOG_KEY, JSON.stringify({ ...log, [account]: today }))
+    try {
+      new Notification(alert.title, { body: alert.detail, icon: '/favicon.svg', tag: `powerpulse-${account}` })
+      localStorage.setItem(LOG_KEY, JSON.stringify({ ...log, [account]: today }))
+    } catch {
+      // Android Chrome only allows notifications from a service worker; the banner still shows.
+    }
   }, [account, alert, enabled])
 }
