@@ -20,8 +20,8 @@ const DAILY_SPAN = 30
 
 function SegmentedUnit({ unit, onChange }: { unit: Unit; onChange: (u: Unit) => void }) {
   const options: [Unit, string][] = [
-    ['kwh', 'kWh'],
     ['taka', 'Taka'],
+    ['kwh', 'kWh'],
   ]
   return (
     <div className="segmented" role="group" aria-label="Show usage in">
@@ -41,7 +41,7 @@ function SegmentedUnit({ unit, onChange }: { unit: Unit; onChange: (u: Unit) => 
 }
 
 export function Usage({ daily, monthly, rechargeDates, readingDate, forecast }: UsageProps) {
-  const [unit, setUnit] = useState<Unit>('kwh')
+  const [unit, setUnit] = useState<Unit>('taka')
   const [showTable, setShowTable] = useState(false)
   const tableToggleId = useId()
 

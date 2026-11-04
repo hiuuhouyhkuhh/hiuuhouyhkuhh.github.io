@@ -32,17 +32,18 @@ function renderUsage() {
 }
 
 describe('Usage', () => {
-  it('summarises the busiest day and heaviest month', () => {
+  it('shows taka by default and summarises the busiest day and heaviest month', () => {
     renderUsage()
-    expect(screen.getByText(/busiest day/i)).toHaveTextContent('Busiest day: 2 Nov, 5.5 kWh')
-    expect(screen.getByText(/heaviest month/i)).toHaveTextContent('Heaviest month: Oct 2026, 169.5 kWh')
+    expect(screen.getByRole('button', { name: 'Taka' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByText(/busiest day/i)).toHaveTextContent('Busiest day: 2 Nov, ৳25.40')
+    expect(screen.getByText(/heaviest month/i)).toHaveTextContent('Heaviest month: Oct 2026, ৳1,198')
   })
 
-  it('switches both charts between kWh and taka', async () => {
+  it('switches both charts to kWh', async () => {
     renderUsage()
-    await userEvent.click(screen.getByRole('button', { name: 'Taka' }))
-    expect(screen.getByText(/busiest day/i)).toHaveTextContent('৳25.40')
-    expect(screen.getByText(/heaviest month/i)).toHaveTextContent('৳1,198')
+    await userEvent.click(screen.getByRole('button', { name: 'kWh' }))
+    expect(screen.getByText(/busiest day/i)).toHaveTextContent('5.5 kWh')
+    expect(screen.getByText(/heaviest month/i)).toHaveTextContent('169.5 kWh')
   })
 
   it('adds the projected current month and shows tables on request', async () => {
@@ -50,6 +51,6 @@ describe('Usage', () => {
     await userEvent.click(screen.getByRole('switch', { name: /table view/i }))
     const [, monthlyTable] = screen.getAllByRole('table')
     expect(within(monthlyTable!).getByText('Nov 2026 (projected)')).toBeInTheDocument()
-    expect(within(monthlyTable!).getByText('160.0 kWh')).toBeInTheDocument()
+    expect(within(monthlyTable!).getByText('৳800')).toBeInTheDocument()
   })
 })
