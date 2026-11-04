@@ -1,10 +1,17 @@
 import { useEffect, useMemo } from 'react'
+import { useAlertNotification } from '../../hooks/useAlertNotification'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useMeterData } from '../../hooks/useMeterData'
+import { DEFAULT_ALERTS, evaluateAlert, type AlertSettings as Settings } from '../../lib/alerts'
 import { readingDate } from '../../lib/dates'
 import { deriveDailyUsage, sortMonthlyUsage } from '../../lib/derive'
+import { formatTaka } from '../../lib/format'
 import { forecast } from '../../lib/forecast'
+import { AlertBanner } from '../Alerts/AlertBanner'
+import { AlertSettings } from '../Alerts/AlertSettings'
 import { BalanceHero } from '../BalanceHero/BalanceHero'
 import { Figures } from '../Figures/Figures'
+import { Recharges } from '../Recharges/Recharges'
 import { Runway } from '../Runway/Runway'
 import { Usage } from '../Usage/Usage'
 import './Dashboard.css'
@@ -15,11 +22,10 @@ interface DashboardProps {
   onNotFound: (account: string, message: string) => void
 }
 
-const ALERT_DAYS = 7
-
 export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
   const meter = useMeterData(account)
   const { balance, daily, monthly, recharges } = meter
+  const [settings, setSettings] = useLocalStorage<Settings>('pp:alerts', DEFAULT_ALERTS)
 
   const notFound = balance.status === 'error' && balance.error?.kind === 'not-found'
   useEffect(() => {
@@ -46,6 +52,21 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
         : null,
     [balance.data, reading, daily.data, dailyUsage],
   )
+  const alert = useMemo(
+    () =>
+      balance.data
+        ? evaluateAlert(
+            {
+              balance: balance.data.balance,
+              daysLeft: outlook?.status === 'ok' ? outlook.daysLeft : null,
+              runOutDate: outlook?.status === 'ok' ? outlook.runOutDate : null,
+            },
+            settings,
+          )
+        : null,
+    [balance.data, outlook, settings],
+  )
+  useAlertNotification(account, alert, settings.notify)
 
   if (balance.status === 'error' && !notFound) {
     return (
@@ -74,6 +95,16 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
   return (
     <div className="dash">
       <h1 className="visually-hidden">Meter {account}</h1>
+      {alert ? (
+        <AlertBanner
+          alert={alert}
+          suggestion={
+            outlook?.status === 'ok' && outlook.rechargeToMonthEnd > 0
+              ? `Recharging ${formatTaka(outlook.rechargeToMonthEnd, { decimals: 0 })} gets you to month end.`
+              : undefined
+          }
+        />
+      ) : null}
       <section className="readout" aria-label="Balance and runway">
         <BalanceHero balance={balance.data} refreshing={balance.status === 'loading'} onRefresh={meter.reload} />
         {outlook?.status === 'ok' ? (
@@ -82,7 +113,7 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
             runOutDate={outlook.runOutDate}
             readingDate={reading}
             dailyTaka={outlook.dailyTaka}
-            alertDays={ALERT_DAYS}
+            alertDays={settings.runwayDays}
           />
         ) : outlook?.status === 'insufficient' ? (
           <p className="inline-note">Forecasts appear once DESCO has reported at least 3 days of readings.</p>
@@ -115,6 +146,17 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
       ) : (
         <p className="inline-note">Usage history is unavailable right now. Try refreshing in a moment.</p>
       )}
+
+      <div className="dash__lower">
+        {recharges.data ? (
+          <Recharges recharges={recharges.data} />
+        ) : recharges.status === 'error' ? (
+          <p className="inline-note">Recharge history is unavailable right now.</p>
+        ) : (
+          <div className="skeleton skeleton--row" />
+        )}
+        <AlertSettings settings={settings} onChange={setSettings} />
+      </div>
     </div>
   )
 }

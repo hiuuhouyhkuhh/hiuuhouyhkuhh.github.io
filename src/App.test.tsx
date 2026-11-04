@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { App } from './App'
-import { mockDesco } from './test/fixtures'
+import { BALANCE, mockDesco } from './test/fixtures'
 
 afterEach(() => {
   vi.unstubAllGlobals()
@@ -41,6 +41,12 @@ describe('App', () => {
     window.history.replaceState(null, '', '/?account=00000000')
     render(<App />)
     expect(await screen.findByLabelText('510.65 taka')).toBeInTheDocument()
+  })
+
+  it('warns when the balance is below the alert threshold', async () => {
+    mockDesco({ balance: { ...BALANCE, balance: 150 } })
+    await openAccount('00000000')
+    expect(await screen.findByText(/below your ৳200 alert/)).toBeInTheDocument()
   })
 
   it('offers a retry when DESCO cannot be reached', async () => {

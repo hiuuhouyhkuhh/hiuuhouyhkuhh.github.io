@@ -116,3 +116,16 @@
 .skeleton--runway {
   height: 10rem;
 }
+
+.dash__lower {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: var(--s-7);
+  align-items: start;
+}
+
+@media (max-width: 60rem) {
+  .dash__lower {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
