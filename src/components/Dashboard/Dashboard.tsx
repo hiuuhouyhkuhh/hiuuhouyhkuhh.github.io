@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { useAlertNotification } from '../../hooks/useAlertNotification'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useMeterData } from '../../hooks/useMeterData'
-import { DEFAULT_ALERTS, evaluateAlert, type AlertSettings as Settings } from '../../lib/alerts'
+import { DEFAULT_ALERTS, evaluateAlert, parseAlertSettings, type AlertSettings as Settings } from '../../lib/alerts'
 import { readingDate } from '../../lib/dates'
 import { deriveDailyUsage, sortMonthlyUsage } from '../../lib/derive'
 import { formatTaka } from '../../lib/format'
@@ -25,7 +25,7 @@ interface DashboardProps {
 export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
   const meter = useMeterData(account)
   const { balance, daily, monthly, recharges } = meter
-  const [settings, setSettings] = useLocalStorage<Settings>('pp:alerts', DEFAULT_ALERTS)
+  const [settings, setSettings] = useLocalStorage<Settings>('pp:alerts', DEFAULT_ALERTS, parseAlertSettings)
 
   const notFound = balance.status === 'error' && balance.error?.kind === 'not-found'
   useEffect(() => {
@@ -68,7 +68,7 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
   )
   useAlertNotification(account, alert, settings.notify)
 
-  if (balance.status === 'error' && !notFound) {
+  if (balance.status === 'error' && !notFound && !balance.data) {
     return (
       <section className="panel-error" role="alert">
         <h1>Couldn’t read this meter</h1>
@@ -106,7 +106,12 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
         />
       ) : null}
       <section className="readout" aria-label="Balance and runway">
-        <BalanceHero balance={balance.data} refreshing={balance.status === 'loading'} onRefresh={meter.reload} />
+        <BalanceHero
+          balance={balance.data}
+          refreshing={balance.status === 'loading'}
+          refreshError={balance.status === 'error' ? balance.error?.message : undefined}
+          onRefresh={meter.reload}
+        />
         {outlook?.status === 'ok' ? (
           <Runway
             daysLeft={outlook.daysLeft}

@@ -66,9 +66,16 @@ export function useMeterData(account: string) {
       },
       (error: unknown) => {
         if (signal.aborted) return
+        // Keep anything already on screen; only mark it as failed.
         const apiError = toApiError(error)
-        const failed: Section<never> = { status: 'error', error: apiError }
-        setData({ balance: failed, daily: failed, monthly: failed, recharges: failed })
+        const fail = <T,>(section: Section<T>): Section<T> => ({ ...section, status: 'error', error: apiError })
+        setData((prev) => ({
+          backend: prev.backend,
+          balance: fail(prev.balance),
+          daily: fail(prev.daily),
+          monthly: fail(prev.monthly),
+          recharges: fail(prev.recharges),
+        }))
       },
     )
 

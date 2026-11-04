@@ -49,6 +49,16 @@ describe('App', () => {
     expect(await screen.findByText(/below your ৳200 alert/)).toBeInTheDocument()
   })
 
+  it('keeps the last reading on screen when a refresh fails', async () => {
+    mockDesco()
+    await openAccount('00000000')
+    expect(await screen.findByText('৳510.65')).toBeInTheDocument()
+    vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))))
+    await userEvent.click(screen.getByRole('button', { name: 'Refresh' }))
+    expect(await screen.findByText(/couldn’t refresh/i)).toBeInTheDocument()
+    expect(screen.getByText('৳510.65')).toBeInTheDocument()
+  })
+
   it('offers a retry when DESCO cannot be reached', async () => {
     vi.stubGlobal('fetch', vi.fn(() => Promise.reject(new TypeError('Failed to fetch'))))
     await openAccount('00000000')
