@@ -68,6 +68,44 @@ describe('fetchBalance', () => {
     await expect(fetchBalance('00000000', { fetchImpl })).rejects.toMatchObject({ kind: 'not-found' })
   })
 
+  it('ignores a corrupt cached backend and still finds the account', async () => {
+    const fetchImpl = fakeFetch({ tkdes: { code: 200, desc: 'OK', data: BALANCE } })
+    const result = await fetchBalance('00000000', { fetchImpl, preferred: 'foo' as never })
+    expect(result.backend).toBe('tkdes')
+    expect(fetchImpl.mock.calls.every(([url]) => !String(url).includes('/foo/'))).toBe(true)
+  })
+
+  it('falls back to the other backend when the first one fails', async () => {
+    const fetchImpl = vi.fn((url: string | URL | Request) =>
+      String(url).includes('/unified/')
+        ? Promise.resolve(new Response('down', { status: 503 }))
+        : json({ code: 200, desc: 'OK', data: BALANCE }),
+    )
+    expect((await fetchBalance('00000000', { fetchImpl })).backend).toBe('tkdes')
+  })
+
+  it('reports the failure, not "not found", when a backend could not be checked', async () => {
+    const fetchImpl = vi.fn((url: string | URL | Request) =>
+      String(url).includes('/unified/')
+        ? Promise.reject(new TypeError('Failed to fetch'))
+        : json({ code: 16001, desc: 'The Account No. does not exist', data: null }),
+    )
+    await expect(fetchBalance('00000000', { fetchImpl })).rejects.toMatchObject({ kind: 'network' })
+  })
+
+  it('works where AbortSignal.any is missing', async () => {
+    const original = AbortSignal.any
+    // @ts-expect-error simulate Safari < 17.4
+    AbortSignal.any = undefined
+    try {
+      const fetchImpl = fakeFetch({ tkdes: { code: 200, desc: 'OK', data: BALANCE } })
+      const result = await fetchBalance('00000000', { fetchImpl, signal: new AbortController().signal })
+      expect(result.backend).toBe('tkdes')
+    } finally {
+      AbortSignal.any = original
+    }
+  })
+
   it('throws a retryable network error when the request fails', async () => {
     const fetchImpl = vi.fn(() => Promise.reject(new TypeError('Failed to fetch')))
     const error = await fetchBalance('00000000', { fetchImpl }).catch((e: unknown) => e)

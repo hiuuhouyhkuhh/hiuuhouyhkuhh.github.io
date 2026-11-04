@@ -35,6 +35,20 @@ export function normalizeAccount(input: string): string | null {
   return /^\d{6,12}$/.test(digits) ? digits : null
 }
 
+/** `AbortSignal.any` is missing before Safari 17.4, so combine signals by hand there. */
+function anySignal(signals: AbortSignal[]): AbortSignal {
+  if (typeof AbortSignal.any === 'function') return AbortSignal.any(signals)
+  const controller = new AbortController()
+  for (const signal of signals) {
+    if (signal.aborted) {
+      controller.abort(signal.reason)
+      break
+    }
+    signal.addEventListener('abort', () => controller.abort(signal.reason), { once: true })
+  }
+  return controller.signal
+}
+
 async function request<T>(
   backend: Backend,
   endpoint: string,
@@ -43,7 +57,7 @@ async function request<T>(
 ): Promise<ApiEnvelope<T>> {
   const url = `${BASE_URL}/${backend}/customer/${endpoint}?${new URLSearchParams(params)}`
   const timeout = AbortSignal.timeout(TIMEOUT_MS)
-  const combined = signal ? AbortSignal.any([signal, timeout]) : timeout
+  const combined = signal ? anySignal([signal, timeout]) : timeout
 
   let response: Response
   try {
@@ -68,15 +82,21 @@ export async function fetchBalance(
   account: string,
   options: RequestOptions & { preferred?: Backend } = {},
 ): Promise<{ backend: Backend; balance: BalanceRecord }> {
-  const order = options.preferred
-    ? [options.preferred, ...BACKENDS.filter((b) => b !== options.preferred)]
-    : BACKENDS
+  const preferred = BACKENDS.find((b) => b === options.preferred)
+  const order = preferred ? [preferred, ...BACKENDS.filter((b) => b !== preferred)] : BACKENDS
 
+  // "Not found" is only true if every backend answered; otherwise report what failed.
+  let failure: unknown
   for (const backend of order) {
-    const body = await request<BalanceRecord>(backend, 'getBalance', { accountNo: account }, options)
-    if (body.code === 200 && body.data) return { backend, balance: body.data }
+    try {
+      const body = await request<BalanceRecord>(backend, 'getBalance', { accountNo: account }, options)
+      if (body.code === 200 && body.data) return { backend, balance: body.data }
+    } catch (error) {
+      if (options.signal?.aborted) throw error
+      failure ??= error
+    }
   }
-  throw new MeterApiError('not-found', 'No DESCO prepaid account found with this number.')
+  throw failure ?? new MeterApiError('not-found', 'No DESCO prepaid account found with this number.')
 }
 
 async function list<T>(
