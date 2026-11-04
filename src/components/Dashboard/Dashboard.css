@@ -1,5 +1,6 @@
 .dash {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-8);
   padding-block: var(--s-7) var(--s-8);
 }
@@ -13,7 +14,7 @@
 
 @media (max-width: 60rem) {
   .readout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--s-6);
   }
 }

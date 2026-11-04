@@ -6,6 +6,7 @@ import { forecast } from '../../lib/forecast'
 import { BalanceHero } from '../BalanceHero/BalanceHero'
 import { Figures } from '../Figures/Figures'
 import { Runway } from '../Runway/Runway'
+import { Usage } from '../Usage/Usage'
 import './Dashboard.css'
 
 interface DashboardProps {
@@ -18,7 +19,7 @@ const ALERT_DAYS = 7
 
 export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
   const meter = useMeterData(account)
-  const { balance, daily, monthly } = meter
+  const { balance, daily, monthly, recharges } = meter
 
   const notFound = balance.status === 'error' && balance.error?.kind === 'not-found'
   useEffect(() => {
@@ -28,6 +29,10 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
 
   const dailyUsage = useMemo(() => deriveDailyUsage(daily.data ?? []), [daily.data])
   const monthlyUsage = useMemo(() => sortMonthlyUsage(monthly.data ?? []), [monthly.data])
+  const rechargeDates = useMemo(
+    () => new Set((recharges.data ?? []).map((r) => r.rechargeDate.slice(0, 10))),
+    [recharges.data],
+  )
   const reading = balance.data ? readingDate(balance.data.readingTime) : null
   const outlook = useMemo(
     () =>
@@ -96,6 +101,20 @@ export function Dashboard({ account, onLoaded, onNotFound }: DashboardProps) {
           monthly={monthlyUsage}
         />
       ) : null}
+
+      {daily.data || monthly.data ? (
+        <Usage
+          daily={dailyUsage}
+          monthly={monthlyUsage}
+          rechargeDates={rechargeDates}
+          readingDate={reading}
+          forecast={outlook}
+        />
+      ) : daily.status === 'loading' || monthly.status === 'loading' ? (
+        <div className="skeleton skeleton--row" />
+      ) : (
+        <p className="inline-note">Usage history is unavailable right now. Try refreshing in a moment.</p>
+      )}
     </div>
   )
 }
