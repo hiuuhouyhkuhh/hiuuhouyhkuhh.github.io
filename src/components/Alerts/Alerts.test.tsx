@@ -47,3 +47,12 @@ describe('AlertSettings', () => {
     expect(screen.getByText(/does not support notifications/i)).toBeInTheDocument()
   })
 })
+
+describe('AlertSettings on iPhone', () => {
+  it('explains how to enable notifications from the Home Screen', () => {
+    vi.spyOn(navigator, 'userAgent', 'get').mockReturnValue('Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)')
+    render(<AlertSettings settings={DEFAULT_ALERTS} onChange={vi.fn()} />)
+    expect(screen.getByText(/add to home screen/i)).toBeInTheDocument()
+    vi.restoreAllMocks()
+  })
+})

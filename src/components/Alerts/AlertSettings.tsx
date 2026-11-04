@@ -11,6 +11,15 @@ const RUNWAY_OPTIONS = [3, 5, 7, 10, 14]
 
 const notificationsSupported = () => typeof window !== 'undefined' && 'Notification' in window
 
+/** iPhone Safari only offers notifications once PowerPulse is opened from the Home Screen. */
+function needsHomeScreen(): boolean {
+  const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  const standalone =
+    (typeof window.matchMedia === 'function' && window.matchMedia('(display-mode: standalone)').matches) ||
+    (navigator as Navigator & { standalone?: boolean }).standalone === true
+  return ios && !standalone
+}
+
 export function AlertSettings({ settings, onChange }: AlertSettingsProps) {
   const id = useId()
   const [threshold, setThreshold] = useState(String(settings.thresholdTaka))
@@ -95,7 +104,9 @@ export function AlertSettings({ settings, onChange }: AlertSettingsProps) {
             {permission === 'denied'
               ? 'Notifications are blocked for this site in your browser settings.'
               : permission === 'unsupported'
-                ? 'This browser does not support notifications.'
+                ? needsHomeScreen()
+                  ? 'On iPhone, tap Share → Add to Home Screen, then open PowerPulse from there to turn this on.'
+                  : 'This browser does not support notifications.'
                 : 'Shown when you open PowerPulse and an alert is active, at most once a day per meter.'}
           </p>
         </div>

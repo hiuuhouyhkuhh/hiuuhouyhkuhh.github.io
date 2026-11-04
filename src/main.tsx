@@ -10,6 +10,16 @@ import './styles/base.css'
 import { App } from './App'
 import { ErrorBoundary } from './components/ErrorBoundary'
 
+// Needed for notifications on Android and installed iPhone apps. Production only, so
+// development never runs a stale worker.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Without a worker, desktop browsers still notify through the constructor.
+    })
+  })
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
