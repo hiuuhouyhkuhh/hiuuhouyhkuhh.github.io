@@ -1,0 +1,109 @@
+/*
+ * Design tokens. Dark ("graphite") is the default; light ("paper") is selected by
+ * the OS or the theme toggle. Chart hues were validated with the dataviz palette
+ * validator against --surface-1 in each mode.
+ */
+:root {
+  color-scheme: dark;
+
+  --bg: #0f0e0d;
+  --surface-1: #141311;
+  --surface-2: #1b1a17;
+  --surface-3: #24221e;
+  --rule: #2b2925;
+  --rule-strong: #3d3a34;
+
+  --text-primary: #f1ede4;
+  --text-secondary: #b9b3a6;
+  --text-muted: #8f897c;
+  --text-on-accent: #160f06;
+
+  --accent: #cf7d24;
+  --accent-strong: #e8953b;
+  --accent-wash: rgb(207 125 36 / 0.12);
+  --accent-glow: rgb(207 125 36 / 0.35);
+  --cool: #3f86c9;
+  --cool-wash: rgb(63 134 201 / 0.14);
+  --deemph: #4a4741;
+
+  --good: #4fae7c;
+  --warn: #e0a92a;
+  --critical: #e9645b;
+  --critical-wash: rgb(233 100 91 / 0.1);
+  --warn-wash: rgb(224 169 42 / 0.1);
+
+  --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --font-bn: 'Hind Siliguri', var(--font-sans);
+
+  /* 4px spacing scale */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+
+  --radius-s: 2px;
+  --radius-m: 4px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --page-max: 76rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:where(:not([data-theme='dark'])) {
+    color-scheme: light;
+    --bg: #ece7dc;
+    --surface-1: #f4f0e8;
+    --surface-2: #ebe5d9;
+    --surface-3: #e1dacc;
+    --rule: #d8d0c1;
+    --rule-strong: #bfb5a3;
+    --text-primary: #191714;
+    --text-secondary: #4f4a42;
+    --text-muted: #6b655a;
+    --text-on-accent: #fffaf2;
+    --accent: #c4661a;
+    --accent-strong: #a9530f;
+    --accent-wash: rgb(196 102 26 / 0.1);
+    --accent-glow: rgb(196 102 26 / 0.25);
+    --cool: #2f6fae;
+    --cool-wash: rgb(47 111 174 / 0.1);
+    --deemph: #c9c0b0;
+    --good: #23794d;
+    --warn: #96650a;
+    --critical: #b83a32;
+    --critical-wash: rgb(184 58 50 / 0.08);
+    --warn-wash: rgb(150 101 10 / 0.08);
+  }
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #ece7dc;
+  --surface-1: #f4f0e8;
+  --surface-2: #ebe5d9;
+  --surface-3: #e1dacc;
+  --rule: #d8d0c1;
+  --rule-strong: #bfb5a3;
+  --text-primary: #191714;
+  --text-secondary: #4f4a42;
+  --text-muted: #6b655a;
+  --text-on-accent: #fffaf2;
+  --accent: #c4661a;
+  --accent-strong: #a9530f;
+  --accent-wash: rgb(196 102 26 / 0.1);
+  --accent-glow: rgb(196 102 26 / 0.25);
+  --cool: #2f6fae;
+  --cool-wash: rgb(47 111 174 / 0.1);
+  --deemph: #c9c0b0;
+  --good: #23794d;
+  --warn: #96650a;
+  --critical: #b83a32;
+  --critical-wash: rgb(184 58 50 / 0.08);
+  --warn-wash: rgb(150 101 10 / 0.08);
+}

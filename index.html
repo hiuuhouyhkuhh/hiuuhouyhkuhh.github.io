@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PowerPulse BD — your DESCO prepaid meter, at a glance</title>
+    <meta
+      name="description"
+      content="Check your DESCO prepaid balance, see how many days it will last, track daily and monthly electricity usage and get low-balance alerts."
+    />
+    <meta name="theme-color" content="#0f0e0d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ece7dc" media="(prefers-color-scheme: light)" />
+    <meta property="og:title" content="PowerPulse BD" />
+    <meta
+      property="og:description"
+      content="Your DESCO prepaid meter, at a glance — balance, runway, usage and alerts."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://powerpulsebd.github.io/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      try {
+        // Apply the saved theme before first paint to avoid a flash.
+        const t = JSON.parse(localStorage.getItem('pp:theme') || 'null')
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
