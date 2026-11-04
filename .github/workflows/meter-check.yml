@@ -1,0 +1,34 @@
+name: Meter check
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 09:00 in Dhaka, after DESCO's midnight reading
+  workflow_dispatch:
+    inputs:
+      send_summary:
+        description: Send a message for every meter, even without an alert
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      # No install step: the script only uses src/lib, which has no dependencies.
+      - run: node scripts/check-meters.ts
+        env:
+          NODE_EXTRA_CA_CERTS: scripts/certs/digicert-g2-intermediate.pem
+          PP_ACCOUNTS: ${{ secrets.PP_ACCOUNTS }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PP_THRESHOLD_TAKA: ${{ vars.PP_THRESHOLD_TAKA }}
+          PP_RUNWAY_DAYS: ${{ vars.PP_RUNWAY_DAYS }}
+          PP_SEND_SUMMARY: ${{ inputs.send_summary }}
