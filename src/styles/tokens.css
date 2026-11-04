@@ -32,7 +32,7 @@
   --critical-wash: rgb(233 100 91 / 0.1);
   --warn-wash: rgb(224 169 42 / 0.1);
 
-  --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Instrument Sans Variable', 'Hind Siliguri', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
   --font-bn: 'Hind Siliguri', var(--font-sans);
 
