@@ -178,10 +178,10 @@ not a template.
 - Telegram messages show the account as `••••1234`.
 
 **Success criteria**
-- [ ] Enabling notifications on Android Chrome shows a notification when an alert is active.
-- [ ] Tapping a notification opens or focuses PowerPulse.
-- [ ] `node scripts/check-meters.ts` runs locally with Node 24 and no build step.
-- [ ] The scheduled job sends one Telegram message per alerting meter and logs nothing sensitive.
+- [x] Enabling notifications on Android Chrome shows a notification when an alert is active.
+- [x] Tapping a notification opens or focuses PowerPulse.
+- [x] `node scripts/check-meters.ts` runs locally with Node 24 and no build step.
+- [x] The scheduled job sends one Telegram message per alerting meter and logs nothing sensitive.
 
 ## Open Questions (deferred, not blocking)
 
