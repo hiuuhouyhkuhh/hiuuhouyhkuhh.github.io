@@ -44,15 +44,6 @@ export function useMeterData(account: string) {
     const { signal } = controller
     const today = dhakaToday()
 
-    // Keep whatever is on screen while reloading the same account.
-    setData((prev) => ({
-      backend: prev.backend,
-      balance: { ...prev.balance, status: 'loading' },
-      daily: { ...prev.daily, status: 'loading' },
-      monthly: { ...prev.monthly, status: 'loading' },
-      recharges: { ...prev.recharges, status: 'loading' },
-    }))
-
     function settle<K extends 'daily' | 'monthly' | 'recharges'>(key: K, promise: Promise<NonNullable<MeterData[K]['data']>>) {
       promise.then(
         (rows) => !signal.aborted && setData((prev) => ({ ...prev, [key]: { status: 'ready', data: rows } })),
@@ -84,7 +75,17 @@ export function useMeterData(account: string) {
     return () => controller.abort()
   }, [account, reloadToken])
 
-  const reload = useCallback(() => setReloadToken((n) => n + 1), [])
+  // Keep whatever is on screen while reloading; only the status changes.
+  const reload = useCallback(() => {
+    setData((prev) => ({
+      backend: prev.backend,
+      balance: { ...prev.balance, status: 'loading' },
+      daily: { ...prev.daily, status: 'loading' },
+      monthly: { ...prev.monthly, status: 'loading' },
+      recharges: { ...prev.recharges, status: 'loading' },
+    }))
+    setReloadToken((n) => n + 1)
+  }, [])
 
   return { ...data, reload }
 }
