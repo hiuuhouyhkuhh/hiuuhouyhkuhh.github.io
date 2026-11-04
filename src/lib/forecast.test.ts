@@ -51,6 +51,11 @@ describe('forecast', () => {
     expect(result).toMatchObject({ status: 'ok', daysLeft: Infinity, runOutDate: null })
   })
 
+  it('never reports a negative runway for an empty or overdrawn meter', () => {
+    const result = forecast({ balance: -40, monthToDateTaka: 0, readingDate: '2026-11-04', daily: days(5, 20) })
+    expect(result).toMatchObject({ status: 'ok', daysLeft: 0, runOutDate: '2026-11-04' })
+  })
+
   it('refuses to forecast from fewer than 3 days', () => {
     const result = forecast({ balance: 300, monthToDateTaka: 0, readingDate: '2026-11-04', daily: days(2, 30) })
     expect(result).toEqual({ status: 'insufficient', basisDays: 2 })

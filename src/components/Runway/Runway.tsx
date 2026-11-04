@@ -42,16 +42,20 @@ export function Runway({ daysLeft, runOutDate, readingDate, dailyTaka, alertDays
     <div className="runway" data-critical={critical ? '' : undefined}>
       <p className="label">Runway at current usage</p>
       <p className="runway__headline">
-        {finite ? (
+        {!finite ? (
+          'No spending recorded lately'
+        ) : daysLeft <= 0 ? (
+          <span className="runway__days">Balance used up</span>
+        ) : (
           <>
             <span className="runway__days">{shownDays}</span> {shownDays === 1 ? 'day' : 'days'} left
           </>
-        ) : (
-          'No spending recorded lately'
         )}
       </p>
       <p className="runway__sub">
-        {runOutDate ? (
+        {finite && daysLeft <= 0 ? (
+          'Recharge to keep the power on.'
+        ) : runOutDate ? (
           <>
             Runs out around{' '}
             <strong>
@@ -65,7 +69,11 @@ export function Runway({ daysLeft, runOutDate, readingDate, dailyTaka, alertDays
       </p>
 
       <div className="runway__ruler" ref={ref}>
-        <svg width={width} height="76" role="img" aria-label={`Balance lasts about ${shownDays} days, until ${runOutDate ?? 'further notice'}`}>
+        <svg width={width} height="76" role="img" aria-label={
+            finite && runOutDate
+              ? `Balance lasts about ${shownDays} days, until ${formatDay(runOutDate, { year: true })}`
+              : 'Balance is not going down at the moment'
+          }>
           <rect className="runway__track" x="0" y={TRACK_Y} width={width} height={TRACK_H} rx="2" />
           <g className="runway__fill">
             <rect className="runway__safe" x="0" y={TRACK_Y} width={Math.max(0, alertStartX - 1)} height={TRACK_H} rx="2" />

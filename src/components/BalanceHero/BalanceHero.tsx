@@ -7,14 +7,18 @@ import './BalanceHero.css'
 interface BalanceHeroProps {
   balance: BalanceRecord
   refreshing: boolean
+  /** Set when the latest refresh failed; the figures shown are from the previous reading. */
+  refreshError?: string
   onRefresh: () => void
 }
 
 const groupDigits = (value: string) => value.replace(/(\d{4})(?=\d)/g, '$1 ')
 
-export function BalanceHero({ balance, refreshing, onRefresh }: BalanceHeroProps) {
+export function BalanceHero({ balance, refreshing, refreshError, onRefresh }: BalanceHeroProps) {
   const shown = useCountUp(balance.balance)
-  const [whole, fraction] = formatNumber(Math.max(0, shown), 2).split('.')
+  // A meter in debt reads negative; show it rather than hiding it as zero.
+  const [whole, fraction] = formatNumber(Math.abs(shown), 2).split('.')
+  const negative = balance.balance < 0
   const time = balance.readingTime.slice(11, 16)
 
   return (
@@ -28,7 +32,10 @@ export function BalanceHero({ balance, refreshing, onRefresh }: BalanceHeroProps
         <span className="hero__currency" aria-hidden="true">
           ৳
         </span>
-        <span aria-hidden="true">{whole}</span>
+        <span aria-hidden="true">
+          {negative ? '−' : ''}
+          {whole}
+        </span>
         <span className="hero__fraction" aria-hidden="true">
           .{fraction}
         </span>
@@ -61,6 +68,11 @@ export function BalanceHero({ balance, refreshing, onRefresh }: BalanceHeroProps
         </svg>
         {refreshing ? 'Reading meter…' : 'Refresh'}
       </button>
+      {refreshError ? (
+        <p className="hero__error" role="status">
+          Couldn’t refresh: {refreshError} Showing the last reading.
+        </p>
+      ) : null}
     </div>
   )
 }

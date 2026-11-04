@@ -42,7 +42,7 @@ export function forecast({ balance, monthToDateTaka, readingDate, daily }: Forec
   const daysRemaining = daysInMonth(month) - Number(readingDate.slice(8, 10)) + 1
   const neededToMonthEnd = dailyTaka * daysRemaining
 
-  const daysLeft = dailyTaka > 0 ? balance / dailyTaka : Infinity
+  const daysLeft = balance <= 0 ? 0 : dailyTaka > 0 ? balance / dailyTaka : Infinity
 
   return {
     status: 'ok',
