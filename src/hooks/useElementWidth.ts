@@ -1,12 +1,13 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
 
-/** Measures an element's width so SVG charts can draw in real pixels. */
+/**
+ * Measures an element's width so SVG charts can draw in real pixels. Uses a
+ * callback ref so it keeps working when the element is swapped out and back.
+ */
 export function useElementWidth<T extends HTMLElement>(fallback = 640) {
-  const ref = useRef<T>(null)
   const [width, setWidth] = useState(fallback)
 
-  useLayoutEffect(() => {
-    const el = ref.current
+  const ref = useCallback((el: T | null) => {
     if (!el || typeof ResizeObserver === 'undefined') return
     const observer = new ResizeObserver(([entry]) => {
       if (entry && entry.contentRect.width > 0) setWidth(Math.round(entry.contentRect.width))
