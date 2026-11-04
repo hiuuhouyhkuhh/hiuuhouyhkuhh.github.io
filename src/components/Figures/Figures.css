@@ -1,0 +1,89 @@
+.figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-block: 1px solid var(--rule-strong);
+}
+
+.figure {
+  display: grid;
+  align-content: start;
+  gap: var(--s-1);
+  padding: var(--s-5) var(--s-5) var(--s-5) 0;
+}
+
+.figure + .figure {
+  padding-left: var(--s-5);
+  border-left: 1px solid var(--rule);
+}
+
+.figure dd {
+  margin: 0;
+}
+
+.figure__value {
+  margin-top: var(--s-1) !important;
+  font-size: clamp(1.5rem, 2.8vw, 2.125rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.figure__value--accent {
+  color: var(--accent);
+}
+
+.figure__note {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.figure__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+}
+
+.figure__delta svg {
+  fill: currentColor;
+}
+
+/* Lower spend is good news. Direction is also stated in words. */
+.figure__delta[data-direction='down'] svg {
+  fill: var(--good);
+}
+
+.figure__delta[data-direction='up'] svg {
+  fill: var(--warn);
+}
+
+@media (max-width: 60rem) {
+  .figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .figure:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .figure:nth-child(n + 3) {
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 26rem) {
+  .figures {
+    grid-template-columns: 1fr;
+  }
+
+  .figure,
+  .figure + .figure {
+    padding: var(--s-4) 0;
+    border-left: 0;
+  }
+
+  .figure + .figure {
+    border-top: 1px solid var(--rule);
+  }
+}

@@ -111,3 +111,7 @@
     background-position: -100% 0;
   }
 }
+
+.skeleton--runway {
+  height: 10rem;
+}
