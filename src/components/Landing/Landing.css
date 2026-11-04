@@ -1,6 +1,7 @@
 .landing {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-5);
   padding-block: clamp(var(--s-7), 10vh, var(--s-9)) var(--s-8);
 }
