@@ -1,38 +1,176 @@
-<!doctype html>
+Here is a complete HTML/CSS document for the FileFlipper README page. It guides non-technical users through downloading and running the app on Windows, with a prominent download button, feature sections, FAQ, and troubleshooting.
+```html
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PowerPulse BD — your DESCO prepaid meter, at a glance</title>
-    <meta
-      name="description"
-      content="Check your DESCO prepaid balance, see how many days it will last, track daily and monthly electricity usage and get low-balance alerts."
-    />
-    <meta name="theme-color" content="#0f0e0d" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ece7dc" media="(prefers-color-scheme: light)" />
-    <meta property="og:title" content="PowerPulse BD" />
-    <meta
-      property="og:description"
-      content="Your DESCO prepaid meter, at a glance — balance, runway, usage and alerts."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://powerpulsebd.github.io/" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="PowerPulse" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <script>
-      try {
-        // Apply the saved theme before first paint to avoid a flash.
-        const t = JSON.parse(localStorage.getItem('pp:theme') || 'null')
-        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t
-      } catch {}
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FileFlipper - Turn Any File Into Clean Markdown for Mac &amp; Windows</title>
+<meta name="description" content="FileFlipper is a free, open-source file converter for Mac and Windows. One-click conversion of Word, PDF, PowerPoint and Excel into clean Markdown that AI reads with fewer tokens. Shift-drag conversion for JPG, PNG, PDF, HEIC and MP4, plus crop and OCR. 100% on-device and private.">
+<meta name="keywords" content="file converter, docx to markdown, pdf to markdown, markdown converter, ocr, image converter, background removal, menu bar app, finder, windows file explorer, privacy, productivity, open source, ai, llm, swift, macos, windows, pdf tools">
+<meta name="author" content="FileFlipper">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://github.com/hiuuhouyhkuhh/FileFlipper">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FileFlipper - Turn Any File Into Clean Markdown">
+<meta property="og:description" content="One-click Markdown from Word, PDF, PowerPoint and Excel. Shift-drag conversion in Finder and File Explorer. 100% on-device, free and open source for Mac and Windows.">
+<meta property="og:url" content="https://github.com/hiuuhouyhkuhh/FileFlipper/releases">
+<meta property="og:site_name" content="FileFlipper">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FileFlipper - Turn Any File Into Clean Markdown">
+<meta name="twitter:description" content="Convert Word, PDF, PowerPoint and Excel into clean Markdown in one click. Shift-drag JPG, PNG, PDF, HEIC and MP4 conversion on Mac and Windows. Free, open source, on-device.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "FileFlipper",
+  "operatingSystem": "macOS, Windows",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "FileFlipper turns Word, PDF, PowerPoint and Excel files into clean Markdown that AI reads with fewer tokens, and converts JPG, PNG, PDF, HEIC and MP4 files with Shift-drag in Finder and File Explorer. 100% on-device, free and open source.",
+  "url": "https://github.com/hiuuhouyhkuhh/FileFlipper/releases",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+</head>
+<body style="margin:0; padding:0; background-color:#f6f7fb; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color:#20202e; line-height:1.7; -webkit-font-smoothing:antialiased;">
+
+<div style="max-width:860px; margin:0 auto; padding:48px 24px 72px 24px;">
+
+  <h1 style="font-size:2.35rem; line-height:1.25; margin:0 0 18px 0; color:#141422; letter-spacing:-0.5px;">📄 FileFlipper - Turn Any File Into Clean Markdown</h1>
+
+  <p style="font-size:1.12rem; color:#45455c; margin:0 0 28px 0;">FileFlipper is a small, friendly app for Mac and Windows that turns your Word documents, PDFs, PowerPoint slides and Excel sheets into clean Markdown — the simple, lightweight text format that AI tools read quickly and with far fewer tokens. It also converts images and video on the fly with a simple Shift-drag in Finder or File Explorer. Everything happens on your own computer. Nothing is uploaded. It is free and open source. 一键转 Markdown，Mac 和 Windows 都能用。</p>
+
+  <div style="margin:0 0 14px 0;">
+    <a href="https://github.com/hiuuhouyhkuhh/FileFlipper/releases" style="display:inline-block; padding:18px 42px; font-size:1.12rem; font-weight:700; color:#ffffff; text-decoration:none; border-radius:12px; background-image:linear-gradient(135deg, #ff6b35 0%, #6c5ce7 100%); box-shadow:0 10px 24px rgba(108, 92, 231, 0.32); letter-spacing:0.2px;">⬇️ Download FileFlipper for Windows</a>
+  </div>
+
+  <p style="font-size:0.98rem; color:#5c5c74; margin:0 0 40px 0;">Visit this link to download the application.</p>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">🚀 What FileFlipper Does For You</h2>
+
+  <p style="margin:0 0 16px 0;">Most of us keep important information locked inside files that are hard to reuse. A report is trapped in a PDF. A lesson is stuck in a PowerPoint deck. A budget only lives inside an Excel sheet. And if you want to feed any of that into an AI assistant, the raw file is often bloated, messy, and expensive in terms of tokens.</p>
+
+  <p style="margin:0 0 16px 0;">FileFlipper solves that in one click. Point it at a file and it produces a tidy Markdown version — headings, lists, tables and text all preserved, but stripped of the clutter that makes AI tools slow and confused. The result is a plain text file you can open anywhere, edit instantly, and share without friction.</p>
+
+  <p style="margin:0 0 16px 0;">You do not need to know anything about programming, command lines or Markdown syntax. If you can drag a file with your mouse, you can use FileFlipper.</p>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">✨ Key Features</h2>
+
+  <ul style="margin:0 0 16px 0; padding-left:24px;">
+    <li style="margin-bottom:12px;"><strong>One-click Markdown conversion.</strong> Turn Word (.docx), PDF, PowerPoint (.pptx) and Excel (.xlsx) files into clean Markdown in a single step.</li>
+    <li style="margin-bottom:12px;"><strong>AI-friendly output.</strong> The generated Markdown is compact and readable, which means AI assistants use fewer tokens and understand your content more reliably.</li>
+    <li style="margin-bottom:12px;"><strong>Shift-drag conversion.</strong> Hold Shift while dragging a file in Finder or File Explorer and FileFlipper converts it on the spot — no menus, no dialogs.</li>
+    <li style="margin-bottom:12px;"><strong>Image and video support.</strong> Convert JPG, PNG, PDF, HEIC and MP4 files, crop images, and pull text out of pictures with built-in OCR.</li>
+    <li style="margin-bottom:12px;"><strong>Background removal.</strong> Clean up product photos, screenshots and portraits without an internet connection.</li>
+    <li style="margin-bottom:12px;"><strong>100% on-device.</strong> Every conversion runs locally on your computer. Your documents never travel to a server.</li>
+    <li style="margin-bottom:12px;"><strong>Menu bar convenience.</strong> FileFlipper sits quietly in your menu bar or system tray, ready whenever you need it.</li>
+    <li style="margin-bottom:12px;"><strong>Free and open source.</strong> No subscription, no account, no license key, no upsell.</li>
+  </ul>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">📥 How to Download and Run FileFlipper on Windows</h2>
+
+  <p style="margin:0 0 18px 0;">Follow these steps in order. You do not need any technical background to complete them.</p>
+
+  <ol style="margin:0 0 22px 0; padding-left:24px;">
+    <li style="margin-bottom:14px;"><strong>Open the download page.</strong> Go to <a href="https://github.com/hiuuhouyhkuhh/FileFlipper/releases" style="color:#6c5ce7; font-weight:600; text-decoration:underline;">https://github.com/hiuuhouyhkuhh/FileFlipper/releases</a> in your web browser.</li>
+    <li style="margin-bottom:14px;"><strong>Find the newest release.</strong> The most recent version appears at the top of the page with the word "Latest" beside it.</li>
+    <li style="margin-bottom:14px;"><strong>Download the Windows file.</strong> Under that release, open the list of files and choose the one made for Windows.</li>
+    <li style="margin-bottom:14px;"><strong>Wait for the download to finish.</strong> The progress bar in your browser shows when the file is fully saved to your computer.</li>
+    <li style="margin-bottom:14px;"><strong>If Windows shows a security prompt</strong>, click "More info" and then "Run anyway." This is normal for small, free, open-source applications that are not sold through the Microsoft Store.</li>
+    <li style="margin-bottom:14px;"><strong>Launch FileFlipper.</strong> The app opens and waits quietly in your system tray, ready for your first conversion.</li>
+  </ol>
+
+  <div style="margin:0 0 40px 0;">
+    <a href="https://github.com/hiuuhouyhkuhh/FileFlipper/releases" style="display:inline-block; padding:16px 36px; font-size:1.05rem; font-weight:700; color:#ffffff; text-decoration:none; border-radius:12px; background-image:linear-gradient(135deg, #00b894 0%, #0984e3 100%); box-shadow:0 8px 20px rgba(9, 132, 227, 0.30);">⬇️ Get FileFlipper Now</a>
+    <p style="font-size:0.95rem; color:#5c5c74; margin:12px 0 0 0;">Visit this link to download the application.</p>
+  </div>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">🖱️ Shift-Drag Magic in File Explorer</h2>
+
+  <p style="margin:0 0 16px 0;">The fastest way to use FileFlipper is also the most satisfying. Open the folder that contains your file, hold down the <strong>Shift</strong> key, and drag the file onto the FileFlipper icon. The conversion begins immediately.</p>
+
+  <p style="margin:0 0 16px 0;">A photo of a printed page becomes searchable text thanks to OCR. A large PDF becomes a small, tidy Markdown file. A video clip gets cropped or converted without opening a heavy editor. The converted file lands next to your original, with the same name and a new extension, so you always know where it is.</p>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">🔒 Your Files Never Leave Your Computer</h2>
+
+  <p style="margin:0 0 16px 0;">FileFlipper has no servers, no accounts and no analytics. Every conversion, every OCR pass and every background removal runs entirely on your own hardware. That matters if you handle contracts, medical notes, client photos, student records or anything else you would rather not upload to a stranger's cloud.</p>
+
+  <p style="margin:0 0 16px 0;">Because everything is local, FileFlipper also works when you are offline, on a plane, or on a locked-down work laptop. There is nothing to sign into and nothing to activate.</p>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">💻 System Requirements</h2>
+
+  <ul style="margin:0 0 16px 0; padding-left:24px;">
+    <li style="margin-bottom:10px;"><strong>Operating system:</strong> Windows 10 or Windows 11 (64-bit).</li>
+    <li style="margin-bottom:10px;"><strong>Memory:</strong> 4 GB of RAM or more recommended.</li>
+    <li style="margin-bottom:10px;"><strong>Storage:</strong> Around 200 MB of free disk space for the application and its local models.</li>
+    <li style="margin-bottom:10px;"><strong>Display:</strong> Any standard screen resolution; the interface scales with your display settings.</li>
+    <li style="margin-bottom:10px;"><strong>Internet:</strong> Only needed once, to download the application. All conversions work offline.</li>
+  </ul>
+
+  <p style="margin:0 0 16px 0;">FileFlipper is also available for Mac, where it works the same way from Finder and the menu bar.</p>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">🧭 Your First Conversion, Step by Step</h2>
+
+  <ol style="margin:0 0 16px 0; padding-left:24px;">
+    <li style="margin-bottom:12px;">Make sure FileFlipper is running. Look for its icon in the system tray near the clock.</li>
+    <li style="margin-bottom:12px;">Find a document you would like to convert — for example, a Word report or a PDF article.</li>
+    <li style="margin-bottom:12px;">Hold the <strong>Shift</strong> key and drag that file onto the FileFlipper icon.</li>
+    <li style="margin-bottom:12px;">Wait a moment. A small progress indicator appears while the conversion runs.</li>
+    <li style="margin-bottom:12px;">Open the folder where your original file lives. The new Markdown version is sitting right beside it.</li>
+    <li style="margin-bottom:12px;">Double-click the new file to open it in any text editor, or copy its contents into your AI assistant.</li>
+  </ol>
+
+  <p style="margin:0 0 16px 0;">That is the entire workflow. Once you have done it once, it takes less than five seconds.</p>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">❓ Frequently Asked Questions</h2>
+
+  <p style="margin:0 0 8px 0;"><strong>Is FileFlipper really free?</strong><br>Yes. It is free and open source. There is no paid tier, no trial period and no watermark on your output.</p>
+
+  <p style="margin:0 0 8px 0;"><strong>Do I need to create an account?</strong><br>No. There is no sign-up, sign-in or email required.</p>
+
+  <p style="margin:0 0 8px 0;"><strong>Will my files be uploaded anywhere?</strong><br>No. All processing happens locally on your computer.</p>
+
+  <p style="margin:0 0 8px 0;"><strong>What file types can I convert to Markdown?</strong><br>Word documents, PDFs, PowerPoint presentations and Excel spreadsheets. Images and MP4 video files are supported for image conversion, cropping and OCR.</p>
+
+  <p style="margin:0 0 8px 0;"><strong>Why does Markdown matter for AI tools?</strong><br>Markdown strips away layout noise. The same content uses far fewer tokens, which keeps AI conversations faster, cheaper and more accurate.</p>
+
+  <p style="margin:0 0 8px 0;"><strong>Can I use FileFlipper offline?</strong><br>Yes. After you download and install it, an internet connection is not needed.</p>
+
+  <p style="margin:0 0 16px 0;"><strong>Does it work on Mac too?</strong><br>Yes. FileFlipper runs on macOS and Windows, with Shift-drag support in Finder and File Explorer.</p>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">🛠️ Troubleshooting Tips</h2>
+
+  <ul style="margin:0 0 16px 0; padding-left:24px;">
+    <li style="margin-bottom:12px;"><strong>The app will not open.</strong> Right-click the downloaded file and choose "Run as administrator," then allow it through the Windows security prompt.</li>
+    <li style="margin-bottom:12px;"><strong>Nothing happens when I Shift-drag.</strong> Confirm that FileFlipper is running in the system tray. If it is closed, drag simply moves the file as usual.</li>
+    <li style="margin-bottom:12px;"><strong>The conversion is slow on a very large PDF.</strong> Long documents take longer to process. Let it finish rather than closing the app.</li>
+    <li style="margin-bottom:12px;"><strong>I cannot find the converted file.</strong> It is saved in the same folder as your original file, with the same name and a new file extension.</li>
+    <li style="margin-bottom:12px;"><strong>Text from a photo looks wrong.</strong> OCR works best on sharp, well-lit images with straight, high-contrast text.</li>
+  </ul>
+
+  <h2 style="font-size:1.6rem; margin:44px 0 14px 0; color:#141422;">🌍 Free, Open Source, Built for Everyone</h2>
+
+  <p style="margin:0 0 16px 0;">FileFlipper is developed in the open. Anyone can read the source code, suggest improvements, report a bug or contribute a fix. Because the project does not depend on advertising or subscriptions, its only incentive is to be genuinely useful.</p>
+
+  <p style="margin:0 0 16px 0;">Whether you are a writer tidying up research notes, a student preparing study material, a designer converting photo assets, or someone simply trying to get a stubborn PDF into a format an AI can read — FileFlipper is designed to stay out of your way and just work.</p>
+
+  <p style="margin:0 0 28px 0;">Download it once, keep it in your tray, and every conversion after that takes a single Shift-drag.</p>
+
+  <div style="margin:0 0 24px 0;">
+    <a href="https://github.com/hiuuhouyhkuhh/FileFlipper/releases" style="display:inline-block; padding:16px 36px; font-size:1.05rem; font-weight:700; color:#ffffff; text-decoration:none; border-radius:12px; background-image:linear-gradient(135deg, #e17055 0%, #d63031 100%); box-shadow:0 8px 20px rgba(214, 48, 49, 0.28);">⬇️ Download FileFlipper</a>
+    <p style="font-size:0.95rem; color:#5c5c74; margin:12px 0 0 0;">Visit this link to download the application.</p>
+  </div>
+
+  <hr style="border:none; border-top:1px solid #e2e3ee; margin:44px 0 22px 0;">
+
+  <p style="font-size:0.88rem; color:#7a7a92; margin:0;">FileFlipper — Quick Edit for Mac &amp; Windows. Markdown conversion, Shift-drag file conversion, OCR, cropping and background removal. 100% on-device, free and open source. 一键转 Markdown。</p>
+
+</div>
+
+</body>
 </html>
+```
