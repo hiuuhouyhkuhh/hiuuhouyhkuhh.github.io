@@ -1,5 +1,5 @@
-import { daysBetween, monthOf } from './dates'
-import type { DailyRecord, DailyUsage, MonthlyRecord, MonthlyUsage } from './types'
+import { daysBetween, monthOf } from './dates.ts'
+import type { DailyRecord, DailyUsage, MonthlyRecord, MonthlyUsage } from './types.ts'
 
 export function round(value: number, decimals: number): number {
   const factor = 10 ** decimals

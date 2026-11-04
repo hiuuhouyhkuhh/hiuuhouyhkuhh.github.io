@@ -1,4 +1,4 @@
-import { formatDay, formatTaka } from './format'
+import { formatDay, formatTaka } from './format.ts'
 
 export interface AlertSettings {
   /** Warn when the balance falls below this many taka. */

@@ -1,6 +1,6 @@
-import { addDays, daysInMonth, monthOf } from './dates'
-import { round } from './derive'
-import type { DailyUsage } from './types'
+import { addDays, daysInMonth, monthOf } from './dates.ts'
+import { round } from './derive.ts'
+import type { DailyUsage } from './types.ts'
 
 const BASIS_DAYS = 14
 const MIN_DAYS = 3

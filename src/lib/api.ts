@@ -1,4 +1,4 @@
-import { addDays, addMonths, monthOf } from './dates'
+import { addDays, addMonths, monthOf } from './dates.ts'
 import type {
   ApiEnvelope,
   Backend,
@@ -6,7 +6,7 @@ import type {
   DailyRecord,
   MonthlyRecord,
   RechargeRecord,
-} from './types'
+} from './types.ts'
 
 const BASE_URL = 'https://prepaid.desco.org.bd/api'
 const TIMEOUT_MS = 15_000
