@@ -40,34 +40,34 @@ dates / format helpers
 ## Task List
 
 ### Phase 1: Foundation
-- [ ] Task 1: Scaffold project (Vite/React/TS, Vitest, ESLint, tokens, fonts, base CSS)
-- [ ] Task 2: Date + format helpers and derivations, test-first
-- [ ] Task 3: Forecast model, test-first
-- [ ] Task 4: API client with backend fallback and error mapping, test-first
+- [x] Task 1: Scaffold project (Vite/React/TS, Vitest, oxlint, tokens, fonts, base CSS)
+- [x] Task 2: Date + format helpers and derivations, test-first
+- [x] Task 3: Forecast model, test-first
+- [x] Task 4: API client with backend fallback and error mapping, test-first
 
 ### Checkpoint: Foundation
-- [ ] `npm test`, `npm run typecheck`, `npm run build` pass
+- [x] `npm test`, `npm run typecheck`, `npm run build` pass
 
 ### Phase 2: Core slices
-- [ ] Task 5: Account entry + saved accounts + `useMeterData` → balance hero (first end-to-end slice)
-- [ ] Task 6: Runway gauge + forecast figures
-- [ ] Task 7: Daily usage chart (kWh/৳ toggle, tooltip, table view)
-- [ ] Task 8: Monthly usage chart with projected current month
+- [x] Task 5: Account entry + saved accounts + `useMeterData` → balance hero (first end-to-end slice)
+- [x] Task 6: Runway gauge + forecast figures
+- [x] Task 7: Daily usage chart (kWh/৳ toggle, tooltip, table view)
+- [x] Task 8: Monthly usage chart with projected current month
 
 ### Checkpoint: Core
-- [ ] Live account renders end-to-end; screenshot review at 390px and 1440px
+- [x] Live account renders end-to-end; screenshot review at 390px and 1440px
 
 ### Phase 3: Alerts, history, polish
-- [ ] Task 9: Alert threshold settings + banner + opt-in browser notification
-- [ ] Task 10: Recharge history with token copy
-- [ ] Task 11: Theme toggle, motion, responsive + accessibility pass
+- [x] Task 9: Alert threshold settings + banner + opt-in browser notification
+- [x] Task 10: Recharge history with token copy
+- [x] Task 11: Theme toggle, motion, responsive + accessibility pass
 
 ### Checkpoint: Complete
-- [ ] All success criteria in SPEC.md
-- [ ] Code review + simplification pass
+- [x] All success criteria in SPEC.md
+- [x] Code review + simplification pass
 
 ### Phase 4: Ship
-- [ ] Task 12: GitHub Actions CI + Pages deploy, README, go live
+- [x] Task 12: GitHub Actions CI + Pages deploy, README, go live
 
 ## Risks and Mitigations
 

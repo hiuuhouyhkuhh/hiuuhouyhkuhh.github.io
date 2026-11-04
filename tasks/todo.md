@@ -4,25 +4,25 @@
 **Acceptance:** Vite React TS app builds; Vitest runs; tokens + fonts + base CSS in place.
 **Verify:** `npm test`, `npm run typecheck`, `npm run build`
 **Files:** package.json, vite.config.ts, tsconfig*, src/main.tsx, src/styles/*
-- [ ] done
+- [x] done
 
 ## Task 2: Dates, formatting, derivations (TDD)
 **Acceptance:** Dhaka "today", month math, ৳/kWh formatting; daily deltas from cumulative register and month-to-date taka (including month rollover and gaps); monthly records sorted.
 **Verify:** `npm test -- src/lib`
 **Files:** src/lib/dates.ts, format.ts, derive.ts (+ tests)
-- [ ] done
+- [x] done
 
 ## Task 3: Forecast (TDD)
 **Acceptance:** dailyBurn, daysLeft, runOutDate, projectedMonth, rechargeToMonthEnd; hidden with < 3 days.
 **Verify:** `npm test -- src/lib/forecast`
 **Files:** src/lib/forecast.ts (+ test)
-- [ ] done
+- [x] done
 
 ## Task 4: API client (TDD)
 **Acceptance:** typed endpoints; tries cached/unified/tkdes; maps 16001 → not found, network/timeout → retryable error; validates account format.
 **Verify:** `npm test -- src/lib/api`
 **Files:** src/lib/api.ts, types.ts (+ test)
-- [ ] done
+- [x] done
 
 ## Checkpoint: Foundation — tests, types, build green
 
@@ -30,25 +30,25 @@
 **Acceptance:** enter account, see balance/meter/reading time; loading + error states; account saved and switchable.
 **Verify:** component tests; live run
 **Files:** src/App.tsx, hooks/useMeterData.ts, hooks/useLocalStorage.ts, components/AccountEntry, components/BalanceHero
-- [ ] done
+- [x] done
 
 ## Task 6: Runway gauge + forecast figures
 **Acceptance:** runway ruler with run-out marker and threshold; figures row (month so far, avg/day, projected month, recharge to month end).
 **Verify:** component tests; screenshot
 **Files:** components/Runway, components/Figures
-- [ ] done
+- [x] done
 
 ## Task 7: Daily usage chart
 **Acceptance:** columns for ~30 days, kWh/৳ toggle, hover + keyboard tooltip, table view, recharge days marked.
 **Verify:** component tests; screenshot
 **Files:** components/UsageChart, components/DailyUsage
-- [ ] done
+- [x] done
 
 ## Task 8: Monthly usage chart
 **Acceptance:** 12 months + projected current month (distinct, labelled), same interactions.
 **Verify:** component tests; screenshot
 **Files:** components/MonthlyUsage
-- [ ] done
+- [x] done
 
 ## Checkpoint: Core — live E2E, screenshots at 390/1440
 
@@ -56,19 +56,19 @@
 **Acceptance:** threshold (৳) + runway (<7 days) banner with icon + text; threshold persisted; opt-in Notification.
 **Verify:** component tests
 **Files:** components/AlertBanner, components/AlertSettings, lib/alerts.ts
-- [ ] done
+- [x] done
 
 ## Task 10: Recharge history
 **Acceptance:** list of recharges (date, amount, energy, VAT, status), copy token, empty state.
 **Verify:** component tests
 **Files:** components/Recharges
-- [ ] done
+- [x] done
 
 ## Task 11: Theme, motion, responsive, a11y pass
 **Acceptance:** theme toggle persisted; count-up/rise motion respects reduced motion; 320–1440px; keyboard focus visible.
 **Verify:** screenshots both themes, tab-through
 **Files:** components/ThemeToggle, styles/*
-- [ ] done
+- [x] done
 
 ## Checkpoint: Complete — review + simplify
 
@@ -76,4 +76,4 @@
 **Acceptance:** Actions workflow runs lint/test/build and deploys to Pages; README; site live.
 **Verify:** workflow green; https://powerpulsebd.github.io loads
 **Files:** .github/workflows/deploy.yml, README.md
-- [ ] done
+- [x] done

@@ -144,7 +144,7 @@ not a template.
   conventional messages; render API data as text; respect reduced motion.
 - **Ask first:** adding a backend, collecting any data off-device, adding analytics.
 - **Never:** commit secrets; fetch or display customer personal info; enumerate or
-  guess account numbers; add AI/tool attribution to commits.
+  guess account numbers.
 
 ## Success Criteria
 
